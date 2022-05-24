@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState,useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
@@ -16,11 +16,21 @@ import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 let checks2 = []
 
-function CreateForm() {
+function Form({renderFields, setRenderFields}) {
     
-    const [renderFields, setRenderFields] = useState([])
     const [formData, setFormData] = useState([])
-    const [checkBoxData, setCheckBoxData]  = useState([])
+    // const [checkBoxData, setCheckBoxData]  = useState([])
+    // const [renderFields, setRenderFields] = useState(data)
+
+
+    useEffect(() => {
+     setRenderFields(renderFields)
+    }, [renderFields])
+    
+
+    // const handleReset = () => {
+    //     setRenderFields([])
+    // }
 
     const handleFormData = (e) => {
         const name = e.target.name;
@@ -42,6 +52,7 @@ function CreateForm() {
               [name]: dupli
             });
         } 
+
         else {
             var dupliV = formData[name] || [];
             let indi = dupliV.findIndex((item) => item === value);
@@ -53,27 +64,13 @@ function CreateForm() {
             });
             checks2 = dupliV;
         }
-              
-        // if(e.target.checked){
-        //     // setCheckBoxData((values) => ({...values, [name]: value}))
-        //     setCheckBoxData([...checkBoxData, value])
-        // }
-        // else{
-        //     setCheckBoxData(checkBoxData.filter(value => value!==e.target.value))
-        // }
-        
-        // console.log(name);
-    }
-
-    const handleReset = () => {
-        setRenderFields([])
     }
 
     const logData = () => {
         console.log(formData);
-        // setFormData({...formData, hobbies:checkBoxData})
-        // console.log(checkBoxData);
     }
+
+    // console.log(data);
 
     // console.log(renderFields);
     // console.log(fieldType);
@@ -219,5 +216,5 @@ function CreateForm() {
     )
 }
 
-export default CreateForm
+export default Form
 
